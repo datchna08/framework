@@ -9,10 +9,11 @@ class LoginPage{
         this.passwordTextbox = page.locator('#password')
         this.loginButton = page.getByRole('button',{name:'Submit'})
         this.loginValidation = page.getByRole('heading',{name:'Logged In Successfully'})
+        this.errorMessage = page.locator('#error')
         
     }
     async navigate(){
-        await this.page.goto('https://practicetestautomation.com/practice-test-login')
+        await this.page.goto('https://practicetestautomation.com/practice-test-login/',{waitUntil: 'domcontentloaded'})
     }
     async login(username,password){
         await this.usernameTextbox.fill(username)
