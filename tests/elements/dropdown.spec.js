@@ -1,0 +1,13 @@
+const {test,expect} = require('@playwright/test')
+const {SelectMenuPage} = require('../../pages/SelectMenuPage.js')
+test('Dropdown',async({page})=>{
+    const selectMenuPage = new SelectMenuPage(page)
+    await selectMenuPage.navigate()
+    await expect(selectMenuPage.verifyHeading).toBeVisible()
+    await selectMenuPage.selectValue('Group 2, option 1')
+    await expect(selectMenuPage.clickSelectValue).toContainText('Group 2, option 1')
+    await selectMenuPage.selectOld()
+    await expect(selectMenuPage.clickOldStyle).toHaveValue('2')
+    await selectMenuPage.selectOne('Dr.')
+    await expect(selectMenuPage.clickSelectOne).toContainText('Dr.')
+})
