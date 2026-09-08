@@ -4,19 +4,22 @@ class LoginPage{
      * @param {import('@playwright/test').Page} page
      */
     constructor(page){
-        this.page = page;
-        this.usernameTextbox = page.locator('#username')
-        this.passwordTextbox = page.locator('#password')
-        this.loginButton = page.getByRole('button',{name:'Submit'})
-        this.loginValidation = page.getByRole('heading',{name:'Logged In Successfully'})
-        
+        this.page = page
+        this.pageHeading  = page.getByRole('heading',{name:'Login Page'})
+        this.usernameInput = page.locator('#username')
+        this.passwordInput = page.locator('#password')
+        this.loginButton = page.locator('button[type="submit"]')
+        this.authMessage = page.locator('#flash')
     }
-    async navigate(){
-        await this.page.goto('https://practicetestautomation.com/practice-test-login')
+    async pageNavigation(){
+        await this.page.goto('https://the-internet.herokuapp.com/login')
     }
-    async login(username,password){
-        await this.usernameTextbox.fill(username)
-        await this.passwordTextbox.fill(password)
+    async login(username, password){
+        await this.usernameInput.fill(username)
+        await this.passwordInput.fill(password)
         await this.loginButton.click()
+    }
+    async getAuthMessage(){
+        return await this.authMessage.textContent()
     }
 }
