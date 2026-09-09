@@ -10,6 +10,7 @@ class LoginPage{
         this.passwordInput = page.locator('#password')
         this.loginButton = page.locator('button[type="submit"]')
         this.authMessage = page.locator('#flash')
+        this.logoutButton = page.getByRole('link',{name:'Logout'})
     }
     async pageNavigation(){
         await this.page.goto('https://the-internet.herokuapp.com/login')
@@ -21,5 +22,8 @@ class LoginPage{
     }
     async getAuthMessage(){
         return await this.authMessage.textContent()
+    }
+    async logout(){
+        await this.logoutButton.click()
     }
 }
