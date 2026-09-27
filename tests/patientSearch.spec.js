@@ -1,0 +1,20 @@
+//@ts-check
+const{test,expect} = require('@playwright/test')
+const{PatientPage} = require('../pages/PatientPage.js')
+const patientData = require('../test-data/patientData.js')
+test('Validating Patient details',async({page})=>{
+const patientPage = new PatientPage(page)
+await patientPage.pageNavigation()
+await expect(page).toHaveURL(/industries/)
+await patientPage.selectLogin()
+await patientPage.selectPatientTab()
+await expect(patientPage.pageHeading).toContainText('Patients')
+await patientPage.searchPatient(patientData.name)
+await patientPage.selectPatientName()
+await expect(patientPage.vaildPatient).toContainText(patientData.name)
+await expect(patientPage.patientDetails).toContainText(patientData.age)
+await expect(patientPage.allergies).toContainText(patientData.Allergies)
+await expect(patientPage.patientDetails).toContainText(patientData.gender)
+await expect(patientPage.patientDetails).toContainText(patientData.phoneNumber)
+})
+
